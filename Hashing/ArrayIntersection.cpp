@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+    
+void intersection(int *arr1, int *arr2, int n, int m) 
+{
+    //Write your code here
+    
+    //store elements of arr1
+    unordered_map<int,int> uord_m1;
+    unordered_map<int,int> uord_m2;
+    vector<int> res;
+    
+    for(int i=0;i<n;i++)
+        uord_m1[arr1[i]] += 1;
+    
+    for(int i=0;i<m;i++)
+        uord_m2[arr2[i]] += 1;
+    
+    for(int i=0;i<m;i++)
+    {
+        if(uord_m1.count(arr2[i]) > 0)
+        {
+            
+            int itr = min(uord_m1[arr2[i]],uord_m2[arr2[i]]);
+            for(int j = 0;j<itr;j++)
+            {
+                res.push_back(arr2[i]);
+            }
+            uord_m1.erase(arr2[i]);
+            uord_m2.erase(arr2[i]);
+        }
+    }
+    
+    sort(res.begin(),res.end());
+    
+    for(int i = 0;i<res.size();i++)
+    {
+        cout<<res[i]<<' ';
+    }
+    cout<<endl;
+    
+}
+
+int main()
+{
+	int t;
+	cin >> t;
+	while (t--)
+	{
+
+		int size1, size2;
+
+		cin >> size1;
+		int *input1 = new int[size1];
+
+		for (int i = 0; i < size1; i++)
+		{
+			cin >> input1[i];
+		}
+
+		cin >> size2;
+		int *input2 = new int[size2];
+
+		for (int i = 0; i < size2; i++)
+		{
+			cin >> input2[i];
+		}
+
+		intersection(input1, input2, size1, size2);
+		
+		delete[] input1;
+		delete[] input2;
+		
+		cout << endl;
+	}
+
+	return 0;
+}
